@@ -28,13 +28,15 @@ if [ -d ~/.bin ]; then ln -s ryzenadj ~/.bin/ryzenadj && echo "symlinked to ~/.b
 if [ -d /usr/local/bin ]; then ln -s ryzenadj /usr/local/bin/ryzenadj && echo "symlinked to /usr/local/bin/ryzenadj"; fi
 ```
 
-Running this command would make the system run at a very low power usage TDP of 1watt and resulted in an acutal usage of:
+Running this command would make the system run at a very low power usage CPU TDP of 1watt:
 ```
-./ryzenadj --stapm-limit=1000 --fast-limit=1000 --slow-limit=1000 --tctl-temp=90 --info  --power-saving 
+./ryzenadj --stapm-limit=1000 --fast-limit=1000 --slow-limit=1000 --tctl-temp=90 --info --power-saving 
 ```
 
-This would:
-./ryzenadj --stapm-limit=45000 --fast-limit=45000 --slow-limit=1000 --tctl-temp=90 --info  --power-saving 
+Running this command would make the system run at higher power usage with a CPU TDP of 45watt:
+```
+./ryzenadj --stapm-limit=45000 --fast-limit=45000 --slow-limit=45000 --tctl-temp=90 --info --max-performance
+```
 
 
 # Benchmarking
@@ -121,8 +123,17 @@ cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
 
 # Benchmark results
-| Scaling governor | Idle watt | Benchmarking watt | stapm-limit  |  fast-limit | slow-limit | threads | 8T MHZ | AVG Compressing MIPS | AVG Decompressing MIPS | 
-|------------------|------------|-------------------|--------------|-------------|------------|---------|-------|-------------------|--------------------|
-| ondemand         |       8.7w |             11.0w |        1.000 |       1.000 |      1.000 |      16 |   380 |             6.001 |              4.380 |
-| ondemand         | 8.7w - 12w |             71.1w |       45.000 |      45.000 |     45.000 |      16 | 3.017 |            47.122 |             53.957 |
-| powersave        | 8.7w - 12w |             18.1w |       45.000 |      45.000 |     45.000 |      16 | 1.381 |            23.744 |              18.329 |
+| Scaling governor | Idle watt | Benchmarking | stapm-limit  |  fast-limit | slow-limit | threads | 8T MHZ | AVG Compressing MIPS | AVG Decompressing MIPS | 
+|------------------|-----------|--------------|--------------|-------------|------------|---------|--------|----------------------|------------------------|
+| ondemand         |      9.3w |        10.5w |       45.000 |      45.000 |        100 |      16 |    379 |                6.056 |                  4.401 |
+| ondemand         |      8.7w |        11.0w |        1.000 |       1.000 |      1.000 |      16 |    380 |                6.001 |                  4.380 |
+| ondemand         |     15.4w |        30.4w |       45.000 |      45.000 |      4.000 |      16 |    378 |               42.954 |                 39.411 |
+| ondemand         |     15.6w |        30.4w |       45.000 |      45.000 |     15.000 |      16 |  3.793 |               42.954 |                 39.411 |
+| ondemand         |     11.6w |        71.1w |       45.000 |      45.000 |     45.000 |      16 |  3.017 |               47.122 |                 53.957 |
+| powersave        |     11.6w |        18.1w |       45.000 |      45.000 |     45.000 |      16 |  1.381 |               23.744 |                 18.329 |
+| performance      |     13.1w |        73.4w |       45.000 |      45.000 |     45.000 |      16 |  4.207 |               49.404 |                 55.004 |
+
+With these results i'm not sure what the best settings are. 
+A "slow-limit" below 4000 doesn't have any impact. 
+I´m unable to notice any difference with the "stapm-limit" and "fast-limit" parameters. 
+In the table of "Supported Models" my "Renoir" CPU-model is stated that "stapm-limit" does not do anything.
