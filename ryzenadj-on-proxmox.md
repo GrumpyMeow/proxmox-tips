@@ -1,20 +1,20 @@
 # Introduction
 I recently bought a [MinisForum UM450XT](https://store.minisforum.de/products/minisforum-venus-series-um560) to be used as my homeserver. The version i bought has got a Ryzen 7 4800H as the cpu.
-This CPU is very powerfull but will use up-to 45watt of power. As this machine is 24/7/365 running, making it run as efficiently as possible makes sense. When nobody is at home or during the night the system can be throttled without anybody noticing.
+This CPU is very powerfull but will use up-to 45watt of power. As this machine is 24/7/365 running, making it run as efficiently as possible makes sense. When nobody is at home or during the night the system can be throttled without anybody noticing. After i installed everything i measured around 19watt when running idle (with a few VMs and LXCs). Not too bad, but i wanted to see if i could reduce it anyway.
 
 # CPU Scaling Governor
 I started out with using the [Proxmox VE CPU Scaling Governor script from TTeck](https://tteck.github.io/Proxmox/) to select the Powersave-profile. This did work, but kept the system running idle at 15watt.
 
 # BIOS setting
-In the BIOS i noticed an option with which the TDP can be selected. The default was a TDP of 45watt. I selected a TDP of 15watt which resulted in a 8watts being used. Selecting this TDP of course seriously capped the power/speed of the CPU.
+In the BIOS i noticed an option with which the CPU TDP can be selected. The system came configured with a TDP of 45watt. I selected a TDP of 15watt which resulted in a lowering the idle usage to around 8watts. Selecting this TDP of course seriously capped the power/speed of the CPU.
 
 # Powertop
-...
+I did try to run `powertop` a few times, but don´t seem to understand how to actually use it. I'll look into it at a later time.
 
 # RyzenAdj
 I came across [RyzenAdj](https://github.com/FlyGoat/RyzenAdj) which allowed for doing the same as the BIOS setting, but then on-the-fly.
 
-I had to compile the application on the Proxmox host. For which i used this script:
+I had to compile the application on my Proxmox host. The instructions were very clear. My preference would be not to install any additional packages on my Proxmox host. Thus i created a script to allow me to For which i used this script:
 ```
 apt install build-essential cmake libpci-dev git
 git clone https://github.com/FlyGoat/RyzenAdj.git
