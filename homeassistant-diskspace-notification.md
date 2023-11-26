@@ -7,6 +7,7 @@ I also chose to take this opportunity to add a second disk to the Home Assistant
 2. Rebooted the Home Assistant VM to get Home Assistant to learn about the newly added disk
 3. Navigate in Home Assistant to "Settings" > "Storage"
 4. I chose "Move data-disk" and selected the only available option "drive-scsi1"
+5. In the Proxmox console of the Home Assistant VM i watched the log for the operation to complete
 
 # Sensors
 I would expect that Homeassistant or "Home Assistant Supervisor" to provide information about diskspace, but apparently not.  
