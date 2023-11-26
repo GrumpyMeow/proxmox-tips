@@ -17,7 +17,7 @@ condition: []
 action:
   - service: persistent_notification.create
     data:
-      message: ProxmoxVE updates beschikbaar
+      message: '{{ states("sensor.node_pve_total_updates") }} updates beschikbaar voor ProxmoxVE'
       notification_id: proxmoxve_updates
 mode: single  
 ```
