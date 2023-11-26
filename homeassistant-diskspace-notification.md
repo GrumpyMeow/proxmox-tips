@@ -2,8 +2,7 @@
 I just got an error in Homeassistant about the file-system being readonly. This was caused by Homeassistant running out-of-disk-space in the VM. I wanted to have received a notification for this.
 
 # Sensors
-I would expect that Homeassistant or "Home Assistant Supervisor" to provide information about diskspace, but apparently not.
-  
+I would expect that Homeassistant or "Home Assistant Supervisor" to provide information about diskspace, but apparently not.  
 But the "systemmonitor" integration does provide this information. With this Yaml the diskspace information will become available:
 ```
 sensor:
