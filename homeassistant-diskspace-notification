@@ -26,3 +26,21 @@ After reload/reboot Home Assistant i got the following sensors:
 * `sensor.disk_use`
 * `sensor.disk_free`
 
+
+# Automation
+With the following automation i will receive a notification on my iPhone when more than 90% is used:
+```
+alias: Home Assistant controleer vrije diskruimte
+description: ""
+trigger:
+  - platform: numeric_state
+    entity_id:
+      - sensor.disk_use_percent
+    above: 90
+condition: []
+action:
+  - service: notify.mobile_app_iphone_van_sander
+    data:
+      message: Weinig vrije diskruimte voor Home Assisant
+mode: single
+```
