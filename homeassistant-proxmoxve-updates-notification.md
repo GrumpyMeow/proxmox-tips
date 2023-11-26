@@ -1,5 +1,5 @@
 # Introduction
-Via HACS i installed the ProxmoxVE-integration to be able to monitor my Proxmox-installation. I would like to see a persistent-notification in Home Assistant when an update is available for ProxmoxVE.
+Via HACS i installed the [ProxmoxVE-integration](https://github.com/dougiteixeira/proxmoxve) to be able to monitor my Proxmox-installation. I would like to see a persistent-notification in Home Assistant when an update is available for ProxmoxVE.
 
 
 # Automations  
