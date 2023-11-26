@@ -17,6 +17,7 @@ I've tried many different apps to monitor my security camera, but i keep on comm
 3. Add an mount to passthrough the GPU: `nano /etc/pve/lxc/211.conf`
 4. Add the following line: `lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file 0, 0`
 5. I chose to remove mounting of USB-devices from the LXC configuration file. This as i will not use that.
+6. Choose to start the container with: `pct start 211`
    
 
 # Install Frigate
@@ -35,7 +36,6 @@ services:
     image: ghcr.io/blakeblackshear/frigate:stable
     shm_size: "128mb"
     devices:
-      - /dev/bus/usb:/dev/bus/usb
       - /dev/dri/renderD128
     volumes:
       - /etc/localtime:/etc/localtime:ro
