@@ -26,9 +26,9 @@ rm -rf build
 mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
-if [ -d ~/.local/bin ]; then ln -s ryzenadj ~/.local/bin/ryzenadj && echo "symlinked to ~/.local/bin/ryzenadj"; fi
-if [ -d ~/.bin ]; then ln -s ryzenadj ~/.bin/ryzenadj && echo "symlinked to ~/.bin/ryzenadj"; fi
-if [ -d /usr/local/bin ]; then ln -s ryzenadj /usr/local/bin/ryzenadj && echo "symlinked to /usr/local/bin/ryzenadj"; fi
+if [ -d ~/.local/bin ]; then ln -s $PWD/ryzenadj ~/.local/bin/ryzenadj && echo "symlinked to ~/.local/bin/ryzenadj"; fi
+if [ -d ~/.bin ]; then ln -s $PWD/ryzenadj ~/.bin/ryzenadj && echo "symlinked to ~/.bin/ryzenadj"; fi
+if [ -d /usr/local/bin ]; then ln -s $PWD/ryzenadj /usr/local/bin/ryzenadj && echo "symlinked to /usr/local/bin/ryzenadj"; fi
 ```
 
 Running this command would make the system run at a very low power usage CPU TDP of 1watt:
