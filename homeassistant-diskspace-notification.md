@@ -1,5 +1,12 @@
 # Introduction
-I just got an error in Homeassistant about the file-system being readonly. This was caused by Homeassistant running out-of-disk-space in the VM as the disk was only 32gb. I would've liked to have received a notification for this. To resolve the error itself i increased the sized of the disk with another 2gb.
+I just got an error in Homeassistant about the file-system being readonly. This was caused by Homeassistant running out-of-disk-space in the VM as the disk was only 32gb. I would've liked to have received a notification for this. To resolve the error itself i increased the sized of the disk via Proxmox.
+
+# Data-disk
+I also chose to take this opportunity to add a second disk to the Home Assistant VM and to make this the data-disk for Home Assistant.
+1. Via Proxmox i added a 40gb on SCSI:1 with writetrough-caching, enabled discard, enabled backup. It's important to choose the size to match or be larger than the current disk on which Home Assistant is installed or an errormessage will be displayed in Home Assistant.
+2. Rebooted the Home Assistant VM to get Home Assistant to learn about the newly added disk
+3. Navigate in Home Assistant to "Settings" > "Storage"
+4. I chose "Move data-disk" and selected the only available option "drive-scsi1"
 
 # Sensors
 I would expect that Homeassistant or "Home Assistant Supervisor" to provide information about diskspace, but apparently not.  
