@@ -50,10 +50,62 @@ services:
       - "1935:1935" # RTMP feeds
     environment:
       FRIGATE_RTSP_PASSWORD: "myPassword"
+      LIBVA_DRIVER_NAME: "radeonsi"
 ```
+
+# Continue
+1. Run: `mkdir -p /opt/frigate/config`
+1. Run: `cd /opt`
+2. Run: `docker compose pull`
+3. Run: `nano /opt/frigate/config/config.yml`
+4. Put this in the file:
+
+```
+mqtt:
+  enabled: false
+ffmpeg:
+  hwaccel_args: preset-vaapi
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+#Global Object Settings
+objects:
+  track:
+    - person
+  filters:
+    person:
+      min_area: 5000
+      max_area: 100000
+cameras:
+  FrontCam:
+    ffmpeg:
+      inputs:
+        # High Resolution Stream
+        - path: rtsp://192.168.22.1:7447/P6C9GcVoZ8mRmYor
+          roles:
+            - record
+        # Low Resolution Stream
+        - path: rtsp://192.168.22.1:7447/s0Wju46GtlXua3J4
+          roles:
+            - detect
+    detect:
+      width: 480
+      height: 360
+      fps: 24
+```
+
+1. Run: `docker compose pull -d`
 
 
 
 Based on:
 * https://www.homeautomationguy.io/blog/running-frigate-on-proxmox
 * https://github.com/blakeblackshear/frigate/discussions/1111
+
+
+Todo:
+I suspect this also needs to be added to the 211.conf file:
+```
+lxc.cgroup2.devices.allow: c 226:128 rwm
+```
