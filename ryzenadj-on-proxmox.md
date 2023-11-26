@@ -8,6 +8,9 @@ I started out with using the [Proxmox VE CPU Scaling Governor script from TTeck]
 # BIOS setting
 In the BIOS i noticed an option with which the TDP can be selected. The default was a TDP of 45watt. I selected a TDP of 15watt which resulted in a 8watts being used. Selecting this TDP of course seriously capped the power/speed of the CPU.
 
+# Powertop
+...
+
 # RyzenAdj
 I came across [RyzenAdj](https://github.com/FlyGoat/RyzenAdj) which allowed for doing the same as the BIOS setting, but then on-the-fly.
 
