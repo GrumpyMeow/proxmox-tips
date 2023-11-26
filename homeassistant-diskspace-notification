@@ -37,7 +37,10 @@ trigger:
     entity_id:
       - sensor.disk_use_percent
     above: 90
-condition: []
+  - platform: numeric_state
+    entity_id:
+      - sensor.disk_use_percent_config
+    above: 90
 action:
   - service: notify.mobile_app_iphone_van_sander
     data:
