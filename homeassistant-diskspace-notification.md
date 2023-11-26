@@ -1,5 +1,5 @@
 # Introduction
-I just got an error in Homeassistant about the file-system being readonly. This was caused by Homeassistant running out-of-disk-space in the VM. I wanted to have received a notification for this.
+I just got an error in Homeassistant about the file-system being readonly. This was caused by Homeassistant running out-of-disk-space in the VM as the disk was only 32gb. I would've liked to have received a notification for this. To resolve the error itself i increased the sized of the disk with another 2gb.
 
 # Sensors
 I would expect that Homeassistant or "Home Assistant Supervisor" to provide information about diskspace, but apparently not.  
