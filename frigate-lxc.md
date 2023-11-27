@@ -3,7 +3,8 @@ I've tried many different apps to monitor my security camera, but i keep on comm
 * I found the UI of Shinobi counter-intuitive. Also the live-stream was very much delayed. I chose to switch to Frigate again when the Testflight-period expired of the Shinobi-iOS app.
 
 # Create container
-1. I used the TTeck Docker script to create the container with: `bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/ct/docker.sh)"`
+1. I used the TTeck Docker script to create the container with: 
+   `bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/ct/docker.sh)"`
 2. During the script i chose "Debian 12", hostname "frigate", disable ipv6
 3. I also chose to make the container "Privileged". This as i intend to give the container access to my GPU.
 4. I also had to choose the option "enabled fuse OverlayFS". This as my Proxmox host is using ZFS.
