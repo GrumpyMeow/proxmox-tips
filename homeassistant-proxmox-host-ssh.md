@@ -42,6 +42,7 @@ In the shell of the Proxmox-host as the root user:
 ## Members of the ryzenadj group may gain some privileges
 %ryzenadj ALL=(ALL) NOPASSWD: /usr/local/bin/ryzenadj
 ```
+I installed the [remote command line integration](https://github.com/koying/ha-remote-command-line) via HACS.
 In homeassistant add this yaml:
 ```
 remote_command_line:
