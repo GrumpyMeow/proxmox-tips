@@ -16,7 +16,7 @@ I've tried many different apps to monitor my security camera, but i keep on comm
 2. Make a directory for storage on the proxmox host via the Proxmox shell: `mkdir /root/frigate`
 2. Also in the Proxmox shell configure the mount for storage on the container: `pct set 211 -mp0 /root/frigate,mp=/cctv_clips`
 3. Add an mount to passthrough the GPU: `nano /etc/pve/lxc/211.conf`
-4. Add the following line: `lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file 0, 0`
+4. Add the following line: `lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file 0, 0`. I also had to add the environment variable "LIBVA_DRIVER_NAME" in the docker-compose.yaml file. This to allow my AMD Ryzen 4800H CPU to hardware accelerate video processing.
 5. I chose to remove mounting of USB-devices from the LXC configuration file. This as i will not use that.
 6. Choose to start the container with: `pct start 211`
    
