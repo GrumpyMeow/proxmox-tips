@@ -1,5 +1,7 @@
 Page 44/45: https://www.vaillant.nl/downloads/handleidingen-na-10-december-2014/installatiehandleiding-ecotec-plus-0020116691-05-272298.pdf
 
+My Vaillant EcoTec CV publishes it's "statenumber" on the ebus. By translating the numbers into a textual description, the functioning of the CV is much more clear.
+
 Home Assistant "Template helper sensor" to translate "ebusd bai statenumber" into a description:
 ```text
 {{
