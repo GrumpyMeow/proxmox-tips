@@ -1,4 +1,4 @@
-The following script will send an "ebusd/list"- and some "get"-commands. This to have populate Home Assistant as early as possible with values.
+The following script will send an "ebusd/list"- and some "get"-commands via MQTT. This to populate Home Assistant entities as early as possible with values.
 This script also registers high-priority updating for some values.
 
 ```
