@@ -31,3 +31,5 @@ Home Assistant "Template helper sensor" to translate "ebusd bai statenumber" int
     }.get(states('sensor.ebusd_bai_statenumber') | default('') )
 }}
 ```
+
+The above states can also be viewed using the "live monitor" functionality on the display of the CV.
