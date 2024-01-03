@@ -1,7 +1,7 @@
 Page 44/45: https://www.vaillant.nl/downloads/handleidingen-na-10-december-2014/installatiehandleiding-ecotec-plus-0020116691-05-272298.pdf
 
 Home Assistant "Template helper sensor" to translate "ebusd bai statenumber" into a description:
-```
+```text
 {{
    {
      '0':'Verwarming geen warmtevraag',
@@ -26,5 +26,6 @@ Home Assistant "Template helper sensor" to translate "ebusd bai statenumber" int
      '32':'Wachttijd wegens afwijking ventilatortoerental',
      '34':'Vorstbeveiligingsfunctie actief',
      '76':'Installatiedruk te gering. Water bijvullen'
-    }.get(states('sensor.ebusd_bai_statenumber') | default('') ) }}
+    }.get(states('sensor.ebusd_bai_statenumber') | default('') )
+}}
 ```
