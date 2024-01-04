@@ -84,9 +84,10 @@ action:
 alias: Alle ebusd waarden opvragen na opstarten ebusd/mqtt
 description: ""
 trigger:
-  - platform: mqtt
-    topic: ebusd/global/scan
-    payload: finished
+  - platform: state
+    entity_id:
+      - sensor.ebusd_scan
+    to: "\"finished\""
 condition: []
 action:
   - delay:
