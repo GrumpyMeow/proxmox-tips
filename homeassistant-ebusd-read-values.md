@@ -104,3 +104,12 @@ action:
       entity_id: script.opvragen_ebusd_waarden
 mode: single
 ```
+
+
+Because of the above script i can see an accurate representation of my boiler:
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/914762cc-80db-4694-9353-554484a47544)
+
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/d7a36f2a-e878-456a-92f5-c23607af984f)
+
+
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/b2f9c4bd-b96a-4ad7-b7f9-e4220140444b)
