@@ -23,7 +23,6 @@ sequence:
         - bai/PrEnergySumHc1
         - bai/PrEnergySumHwc1
         - bai/PartloadHcKW
-        - bai/PartloadHwcKW
     alias: Definieer lijst van topics waarvan de waarde opgevraagd dient te worden
   - alias: Publiceer "get" commando's voor ophalen van waarden van topics
     repeat:
