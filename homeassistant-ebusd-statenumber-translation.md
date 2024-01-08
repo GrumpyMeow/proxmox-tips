@@ -33,3 +33,6 @@ Home Assistant "Template helper sensor" to translate "ebusd bai statenumber" int
 ```
 
 The above states can also be viewed using the "live monitor" functionality on the display of the CV.
+
+In Home Assistant i see this in the logbook:
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/fc6c5bf8-ad4e-4ee2-8465-6f5b2c5136b5)
