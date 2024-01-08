@@ -43,10 +43,15 @@ sequence:
         - bai/PrEnergySumHwc1
         - bai/Statenumber
         - bai/HwcDemand
+        - bai/RemainingBoilerblocktime
+        - bai/ReturnTemp
+        - bai/PumpPowerDesired
     alias: >-
-      Definieer lijst van topics waarvan de waarde regelmatig bijgewerkt dient te worden
+      Definieer lijst van topics waarvan de waarde regelmatig bijgewerkt dient
+      te worden
   - alias: >-
-      Publiceer "get?1" commando's voor het regelmatig bijwerken van de waarden van topics
+      Publiceer "get?1" commando's voor het regelmatig bijwerken van de waarden
+      van topics
     repeat:
       count: "{{ topics | count }}"
       sequence:
@@ -56,8 +61,6 @@ sequence:
           data:
             topic: "{{topic}}"
             payload: "?1"
-
-
 ```
 
 I combine the script above with the two following automations:
