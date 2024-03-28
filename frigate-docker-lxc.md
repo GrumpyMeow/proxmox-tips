@@ -170,6 +170,14 @@ mkdir -p /media/frigate
 cd /media/frigate
 wget -q https://github.com/intel-iot-devkit/sample-videos/raw/master/person-bicycle-car-detection.mp4
 ```
+Increase go2rtc timeout:
+```
+nano /etc/s6-overlay/s6-rc.d/go2rtc-healthcheck/run
+
+--connect-timeout 100
+sleep 100s
+
+```
 
 Run:
 ```
@@ -193,6 +201,8 @@ pct enter 998
 
 Here the error `[Errno 99] Cannot assign requested address` is displayed, which terminates the container.
 ![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/cafe7ca8-6614-4b07-95fe-7ab205c8f79e)
+
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/0f9ba820-e6cb-46c6-a1d9-8e638cb956e3)
 
 
 * On the proxmox host a log file is created at: `tail -f /var/log/frigate.log`
