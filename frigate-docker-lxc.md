@@ -1,3 +1,4 @@
+With these notes it is possible to take the Frigate Docker container and convert it into a working Proxmox LXC container. Thus running without Docker.
 
 Create raw LXC container from Docker container image:
 ```
