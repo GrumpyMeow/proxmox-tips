@@ -192,6 +192,14 @@ lxc.init.cmd: /init
 lxc.log.level: 3
 lxc.console.logfile: /var/log/frigate.log
 ```
+Hardware-acceleration might work:
+```
+lxc.apparmor.profile: unconfined
+lxc.cap.drop: 
+lxc.cap.drop: sys_time sys_module sys_rawio
+lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
+lxc.cgroup2.devices.allow: c 226:128 rwm
+```
 Now start the LXC container:
 ```
 pct start 998 --debug
