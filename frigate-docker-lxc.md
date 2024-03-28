@@ -75,7 +75,7 @@ export S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
 
 mkdir -p /tmp/cache
 chmod 777 /tmp/cache
-mount -t tmpfs -o size=4096m tmpcache /tmp/cache
+mount -t tmpfs -o size=1024m tmpcache /tmp/cache
 
 rm -rf /dev/shm
 mkdir -p /config/shm
