@@ -169,6 +169,7 @@ Create media folder and download a sample video file:
 mkdir -p /media/frigate
 cd /media/frigate
 wget -q https://github.com/intel-iot-devkit/sample-videos/raw/master/person-bicycle-car-detection.mp4
+chmod -R 777 /media
 ```
 Increase go2rtc timeout:
 ```
