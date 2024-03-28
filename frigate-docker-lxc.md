@@ -4,6 +4,8 @@ Create raw LXC container from Docker container image:
 apt install skopeo umoci jq
 lxc-create frigate -t oci -- --url docker://ghcr.io/blakeblackshear/frigate:stable 
 ```
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/833ef741-5e41-45e6-a538-64f58381ee9c)
+
 
 Install extra packages in the container rootfs:
 ```
