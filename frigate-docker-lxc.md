@@ -204,7 +204,11 @@ Add with `nano /init`:
 ```
 export LIBVA_DRIVER_NAME=radeonsi
 ```
-
+Add with nano /config/config.yml:
+```
+ffmpeg:
+  hwaccel_args: preset-vaapi
+```
 Now start the LXC container:
 ```
 pct start 998 --debug
