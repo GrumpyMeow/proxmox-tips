@@ -192,28 +192,12 @@ lxc.init.cmd: /init
 lxc.log.level: 3
 lxc.console.logfile: /var/log/frigate.log
 ```
-I'm able to get Hardware-acceleration on my AMD APU with:
-```
-lxc.apparmor.profile: unconfined
-lxc.cap.drop: 
-lxc.cap.drop: sys_time sys_module sys_rawio
-lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
-lxc.cgroup2.devices.allow: c 226:128 rwm
-```
-Add with `nano /init`:
-```
-export LIBVA_DRIVER_NAME=radeonsi
-```
-Add with nano /config/config.yml:
-```
-ffmpeg:
-  hwaccel_args: preset-vaapi
-```
 Now start the LXC container:
 ```
 pct start 998 --debug
 pct enter 998
 ```
+
 
 * On the proxmox host a log file is created at: `tail -f /var/log/frigate.log`
 * Log files are available: `cd /dev/shm/logs`
@@ -232,3 +216,24 @@ Resources:
 * https://gist.github.com/midoriiro/58b6d16d1578e030e7078917a5872290
 * https://github.com/just-containers/s6-overlay
 * https://unix.stackexchange.com/questions/119100/cannot-connect-to-any-localhost-connections
+
+# Hardware acceleration
+I'm able to get Hardware-acceleration on my AMD APU with the notes below.
+BUT! When i put the "preset-vaapi" in my config file, the memory usage explodes making the system unusable.
+
+```
+lxc.apparmor.profile: unconfined
+lxc.cap.drop: 
+lxc.cap.drop: sys_time sys_module sys_rawio
+lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
+lxc.cgroup2.devices.allow: c 226:128 rwm
+```
+Add with `nano /init`:
+```
+export LIBVA_DRIVER_NAME=radeonsi
+```
+Add with nano /config/config.yml:
+```
+ffmpeg:
+  hwaccel_args: preset-vaapi
+```
