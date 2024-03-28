@@ -222,6 +222,10 @@ Resources:
 * https://github.com/just-containers/s6-overlay
 * https://unix.stackexchange.com/questions/119100/cannot-connect-to-any-localhost-connections
 
+# ToDo's
+* Bind mount the config file
+* Bind mount the media folder
+
 # Hardware acceleration
 I'm able to get Hardware-acceleration on my AMD APU with the notes below.
 BUT! When i put the "preset-vaapi" in my config file, the memory usage explodes making the system unusable. This is apparently a known issue. If i configure another stream, then the hw-acceleration does work flawless. 
