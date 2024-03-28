@@ -237,3 +237,5 @@ Add with nano /config/config.yml:
 ffmpeg:
   hwaccel_args: preset-vaapi
 ```
+# Notes
+* After modifying the config via the web-ui. Saving will stop the LXC container. And should manually be started.
