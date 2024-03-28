@@ -4,18 +4,20 @@ It's actually working :-S
 ![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/4dd103e2-8e29-4f74-a359-3fb2d99be532)
 
 
-Create raw LXC container from Docker container image:
+Create raw LXC container from Docker container image. Run this on your Proxmox host:
 ```
 apt install skopeo umoci jq
 lxc-create frigate -t oci -- --url docker://ghcr.io/blakeblackshear/frigate:stable 
 ```
 ![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/833ef741-5e41-45e6-a538-64f58381ee9c)
+You will now have a lxc container running which is not managed by Proxmox. The commando `lxc-ls` should now show a container named "frigate".
 
-
-Install extra packages in the container rootfs:
+Change to the rootfs directory of the Frigate LXC container:
 ```
 cd /var/lib/lxc/frigate/rootfs/
-
+```
+For running this LXC container within Proxmox some packages need to be installed in the container rootsfs.
+```
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt update
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install init -y
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install ifupdown2 -y
@@ -26,7 +28,7 @@ cd /var/lib/lxc/frigate/rootfs/
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install net-tools -y
 ```
 
-Create template file (i'm using btrfs, you maybe need to use `/var/lib/vz/`):
+Create template file (i'm using btrfs, you may need to use `/var/lib/vz/`):
 ```
 tar --exclude=dev --exclude=sys --exclude=proc -czvf /var/lib/pve/local-btrfs/template/cache/frigate_template.tar.gz ./
 ```
@@ -36,7 +38,7 @@ cd /
 lxc-destroy frigate
 ```
 
-Create LXC container:
+Create the LXC container managed by Proxmox:
 ```
 pct create 998 /var/lib/pve/local-btrfs/template/cache/frigate_template.tar.gz \
     -hostname frigate-test -memory 2048 \
@@ -49,6 +51,9 @@ pct create 998 /var/lib/pve/local-btrfs/template/cache/frigate_template.tar.gz \
 Start Proxmox LXC container:
 ```
 pct start 998
+```
+Enter the Frigate LXC container and enable network:
+```
 pct enter 998
 /sbin/ip link set dev eth0 up
 /sbin/ip link set dev lo up
@@ -181,7 +186,7 @@ chmod -R 777 /media
 
 Run:
 ```
-exit      < leave the container
+exit      < leave the container, exit to Proxmox host
 pct stop 998   
 ```
 
@@ -219,7 +224,7 @@ Resources:
 
 # Hardware acceleration
 I'm able to get Hardware-acceleration on my AMD APU with the notes below.
-BUT! When i put the "preset-vaapi" in my config file, the memory usage explodes making the system unusable.
+BUT! When i put the "preset-vaapi" in my config file, the memory usage explodes making the system unusable. This is apparently a known issue. If i configure another stream, then the hw-acceleration does work flawless. 
 
 ```
 lxc.apparmor.profile: unconfined
@@ -232,7 +237,7 @@ Add with `nano /init`:
 ```
 export LIBVA_DRIVER_NAME=radeonsi
 ```
-Add with nano /config/config.yml:
+Add with `nano /config/config.yml`:
 ```
 ffmpeg:
   hwaccel_args: preset-vaapi
