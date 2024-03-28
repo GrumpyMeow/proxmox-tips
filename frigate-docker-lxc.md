@@ -1,5 +1,9 @@
 With these notes it is possible to take the Frigate Docker container and convert it into a working Proxmox LXC container. Thus running without Docker.
 
+It's actually working :-S
+![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/4dd103e2-8e29-4f74-a359-3fb2d99be532)
+
+
 Create raw LXC container from Docker container image:
 ```
 apt install skopeo umoci jq
@@ -174,14 +178,6 @@ cd /media/frigate
 wget -q https://github.com/intel-iot-devkit/sample-videos/raw/master/person-bicycle-car-detection.mp4
 chmod -R 777 /media
 ```
-Increase go2rtc timeout:
-```
-nano /etc/s6-overlay/s6-rc.d/go2rtc-healthcheck/run
-
---connect-timeout 100
-sleep 100s
-
-```
 
 Run:
 ```
@@ -201,13 +197,6 @@ Now start the LXC container:
 pct start 998 --debug
 pct enter 998
 ```
-![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/1421a307-6879-47fb-95fb-6283f9cdd2c0)
-
-Here the error `[Errno 99] Cannot assign requested address` is displayed, which terminates the container.
-![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/cafe7ca8-6614-4b07-95fe-7ab205c8f79e)
-
-![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/0f9ba820-e6cb-46c6-a1d9-8e638cb956e3)
-
 
 * On the proxmox host a log file is created at: `tail -f /var/log/frigate.log`
 * Log files are available: `cd /dev/shm/logs`
@@ -215,32 +204,6 @@ Here the error `[Errno 99] Cannot assign requested address` is displayed, which 
 * S6-overlay files are at: `/etc/s6-overlay/s6-rc.d`
 
 When an error occurs S6-overlay will terminate the container. It's possible to temporarily remove the `lxc.init.cmd` from the config-file to be able to have more time to fix stuff in the container.
-
-This is the error which i'm now struggling with to resolve:
-```
-2024-03-28 20:03:23.344001672  [INFO] Preparing new go2rtc config...
-2024-03-28 20:03:23.349380398  [INFO] Starting Frigate...
-2024-03-28 20:03:23.951748584  [INFO] Starting go2rtc...
-2024-03-28 20:03:24.132432205  20:03:24.132 INF go2rtc version 1.8.4 linux/amd64
-2024-03-28 20:03:24.133339287  20:03:24.133 INF [api] listen addr=:1984
-2024-03-28 20:03:24.133420029  20:03:24.133 INF [rtsp] listen addr=:8554
-2024-03-28 20:03:24.133949806  20:03:24.133 INF [webrtc] listen addr=:8555
-2024-03-28 20:03:26.080959291  [2024-03-28 20:03:26] frigate.app                    INFO    : Starting Frigate (0.13.2-6476f8a)
-2024-03-28 20:03:26.201767502  [2024-03-28 20:03:26] peewee_migrate.logs            INFO    : Starting migrations
-2024-03-28 20:03:26.211708182  [2024-03-28 20:03:26] peewee_migrate.logs            INFO    : There is nothing to migrate
-2024-03-28 20:03:26.224045329  [2024-03-28 20:03:26] frigate.app                    INFO    : Recording process started: 796
-2024-03-28 20:03:26.230855328  [2024-03-28 20:03:26] frigate.app                    INFO    : go2rtc process pid: 138
-2024-03-28 20:03:26.238905991  [Errno 99] Cannot assign requested address
-2024-03-28 20:03:26.243526196  [2024-03-28 20:03:26] frigate.record.maintainer      INFO    : Exiting recording maintenance...
-2024-03-28 20:03:27.617150972  [INFO] Service Frigate exited with code 1 (by signal 0)
-s6-rc: info: service legacy-services: stopping
-s6-rc: info: service legacy-services successfully stopped
-s6-rc: info: service nginx: stopping
-s6-rc: info: service go2rtc-healthcheck: stopping
-2024-03-28 20:03:27.647206157  [INFO] The go2rtc-healthcheck service exited with code 256 (by signal 15)
-s6-rc: info: service go2rtc-healthcheck successfully stopped
-2024-03-28 20:03:27.755264504  [INFO] Service NGINX exited with code 0 (by signal 0)
-```
 
 Resources:
 * https://www.buzzwrd.me/index.php/2021/03/10/creating-lxc-containers-from-docker-and-oci-images/
@@ -251,3 +214,4 @@ Resources:
 * https://serverfault.com/questions/731400/how-to-migrate-a-regular-lxc-container-to-a-proxmox-lxc-container
 * https://gist.github.com/midoriiro/58b6d16d1578e030e7078917a5872290
 * https://github.com/just-containers/s6-overlay
+* https://unix.stackexchange.com/questions/119100/cannot-connect-to-any-localhost-connections
