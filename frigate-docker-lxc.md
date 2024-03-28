@@ -46,6 +46,7 @@ Start Proxmox LXC container:
 pct start 998
 pct enter 998
 /sbin/ip link set dev eth0 up
+/sbin/ip link set dev lo up
 dhclient
 ip a
 ```
@@ -56,6 +57,7 @@ Add:
 #!/bin/sh -e
 
 /sbin/ip link set dev eth0 up
+/sbin/ip link set dev lo up
 dhclient
 
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
