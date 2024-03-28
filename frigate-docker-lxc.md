@@ -192,7 +192,7 @@ lxc.init.cmd: /init
 lxc.log.level: 3
 lxc.console.logfile: /var/log/frigate.log
 ```
-Hardware-acceleration might work:
+I'm able to get Hardware-acceleration on my AMD APU with:
 ```
 lxc.apparmor.profile: unconfined
 lxc.cap.drop: 
@@ -200,6 +200,11 @@ lxc.cap.drop: sys_time sys_module sys_rawio
 lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 lxc.cgroup2.devices.allow: c 226:128 rwm
 ```
+Add with `nano /init`:
+```
+export LIBVA_DRIVER_NAME=radeonsi
+```
+
 Now start the LXC container:
 ```
 pct start 998 --debug
