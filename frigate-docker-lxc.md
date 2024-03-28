@@ -12,11 +12,11 @@ cd /var/lib/lxc/frigate/rootfs/
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt update
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install init -y
 /usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install ifupdown2 -y
-/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install isc-dhcp-client
-/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install dnsutils
-/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install inetutils-ping
-/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install nano
-/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install net-tools
+/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install isc-dhcp-client -y
+/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install dnsutils -y
+/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install inetutils-ping -y
+/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install nano -y
+/usr/sbin/chroot /var/lib/lxc/frigate/rootfs/ apt install net-tools -y
 ```
 
 Create template file (i'm using btrfs):
