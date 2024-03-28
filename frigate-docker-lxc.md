@@ -195,10 +195,10 @@ Here the error `[Errno 99] Cannot assign requested address` is displayed, which 
 ![image](https://github.com/GrumpyMeow/proxmox-tips/assets/12073499/cafe7ca8-6614-4b07-95fe-7ab205c8f79e)
 
 
-On the proxmox host a log file is created at: `tail -f /var/log/frigate.log`
-Log files are available: `cd /dev/shm/logs`
-See which ports are listening: `netstat -l`
-S6-overlay files are at: `/etc/s6-overlay/s6-rc.d`
+* On the proxmox host a log file is created at: `tail -f /var/log/frigate.log`
+* Log files are available: `cd /dev/shm/logs`
+* See which ports are listening: `netstat -l`
+* S6-overlay files are at: `/etc/s6-overlay/s6-rc.d`
 
 When an error occurs S6-overlay will terminate the container. It's possible to temporarily remove the `lxc.init.cmd` from the config-file to be able to have more time to fix stuff in the container.
 
