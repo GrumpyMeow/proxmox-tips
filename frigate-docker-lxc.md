@@ -218,6 +218,7 @@ objects:
     - bicycle
 EOL
 ```
+The configuration and sample video file are probably not optimal. This as ffmpeg logs quite a few errors.
 
 Edit the lxc config file with:
 ```
