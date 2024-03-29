@@ -261,3 +261,4 @@ ffmpeg:
 ```
 # Notes
 * After modifying the config via the web-ui. Saving will stop the LXC container. And should manually be started.
+* I'm pretty sure that the folder `/dev/shm` is better to be running of an ram-disk.
