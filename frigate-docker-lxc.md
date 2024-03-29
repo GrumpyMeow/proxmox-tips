@@ -5,6 +5,7 @@ It's actually working :-S
 
 # Initialization
 We will using the init-system which is part of the Frigate Docker container. This init-system (`s6-overlay`) manages the several parallel processes for Frigate. Normally in LXC-containers `systemd` is used, but for this container this is not neccesary.
+Be aware that the init-system will stop the LXC-container when an error occurs or the configuration is changed.
 
 # Process
 
@@ -192,7 +193,6 @@ objects:
     - bicycle
 EOL
 ```
-The configuration and sample video file are probably not optimal. This as ffmpeg logs quite a few errors.
 
 Edit the lxc config file with:
 ```
