@@ -49,13 +49,9 @@ chmod 777 /tmp/cache
 mount -t tmpfs -o size=1024m tmpcache /tmp/cache
 
 rm -rf /dev/shm
-mkdir -p /config/shm
-ln -s /config/shm/ /dev/
-
-mkdir -p /dev/shm
-chmod 777 /dev/shm
 mkdir -p /dev/shm/logs/frigate/
-chmod 777 /dev/shm/logs/frigate
+chmod -R 777 /dev/shm/
+mount -t tmpfs -o size=1024m devshm /dev/shm
 # End
 
 # This is the first program launched at container start.
