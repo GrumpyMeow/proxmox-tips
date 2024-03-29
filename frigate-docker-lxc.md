@@ -175,7 +175,7 @@ motion:
   lightning_threshold: 0.8
   contour_area: 10
   frame_alpha: 0.01
-  frame_height: 100
+  frame_height: 50
   improve_contrast: False
   mqtt_off_delay: 30
 
