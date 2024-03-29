@@ -248,21 +248,13 @@ Resources:
 * https://unix.stackexchange.com/questions/119100/cannot-connect-to-any-localhost-connections
 
 # Hardware acceleration
-I'm able to get Hardware-acceleration on my AMD APU with the notes below.
-BUT! When i put the "preset-vaapi" in my config file, the memory usage explodes making the system unusable. This is apparently a known issue. If i configure another stream, then the hw-acceleration does work flawless. 
-
+I'm able to get Hardware-acceleration on my AMD Ryzen 4800h system with the notes below.
 ```
-lxc.apparmor.profile: unconfined
-lxc.cap.drop: 
-lxc.cap.drop: sys_time sys_module sys_rawio
 lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 lxc.cgroup2.devices.allow: c 226:128 rwm
+lxc.environment: LIBVA_DRIVER_NAME=radeonsi
 ```
-Add with `nano /init`:
-```
-export LIBVA_DRIVER_NAME=radeonsi
-```
-Add with `nano /config/config.yml`:
+Add in the Frigate configuration file:
 ```
 ffmpeg:
   hwaccel_args: preset-vaapi
