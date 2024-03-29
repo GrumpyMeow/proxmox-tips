@@ -244,7 +244,7 @@ Resources:
 * https://unix.stackexchange.com/questions/119100/cannot-connect-to-any-localhost-connections
 
 # Hardware acceleration
-I'm able to get Hardware-acceleration on my AMD Ryzen 4800h system with the notes below.
+I'm able to get Hardware-acceleration on my AMD Ryzen 4800h system with the notes below. I have multiple LXC containers which share the Hardware-acceleration of my GPU. This is only possible with LXC containers, not with VMs.
 ```
 lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 lxc.cgroup2.devices.allow: c 226:128 rwm
