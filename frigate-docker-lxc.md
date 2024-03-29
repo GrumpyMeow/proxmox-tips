@@ -159,38 +159,17 @@ detectors:
 mqtt:
   enabled: False
 
-go2rtc:
-  streams:
-    dummy_camera:
-      - "ffmpeg:/media/frigate/person-bicycle-car-detection.mp4"
-    dummy_camera_sub:
-      - "ffmpeg:/media/frigate/person-bicycle-car-detection.mp4#video=h264#width=640"
-
+go2rtc:    
   webrtc:
     candidates:
-      #- 192.168.1.1:8555
       - stun:8555
 
 cameras:
   dummy_camera:
-    enabled: true
     ffmpeg:
-      output_args:
-        record: preset-record-generic-audio-copy
       inputs:
-        - path: rtsp://127.0.0.1:8554/dummy_camera 
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-            - audio 
-  dummy_camera_sub: 
-    enabled: true
-    ffmpeg:
-      output_args:
-        record: preset-record-generic-audio-copy
-      inputs:
-        - path: rtsp://127.0.0.1:8554/dummy_camera_sub 
-          input_args: preset-rtsp-restream
+        - path: /media/frigate/person-bicycle-car-detection.mp4
+          input_args: -re -stream_loop -1 -fflags +genpts
           roles:
             - detect
 
@@ -202,11 +181,6 @@ motion:
   frame_height: 100
   improve_contrast: False
   mqtt_off_delay: 30
-
-live:
-  stream_name: dummy_camera_sub
-  height: 720
-  quality: 8
 
 record:
   enabled: False
