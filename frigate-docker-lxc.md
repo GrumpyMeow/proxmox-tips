@@ -248,10 +248,12 @@ I'm able to get Hardware-acceleration on my AMD Ryzen 4800h system with the note
 ```
 lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 lxc.cgroup2.devices.allow: c 226:128 rwm
-lxc.environment: LIBVA_DRIVER_NAME=radeonsi
 ```
 Add in the Frigate configuration file:
 ```
+environment_vars:
+  LIBVA_DRIVER_NAME=radeonsi
+
 ffmpeg:
   hwaccel_args: preset-vaapi
 ```
