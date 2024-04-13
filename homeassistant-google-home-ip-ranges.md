@@ -7,7 +7,7 @@ This are the IP-ranges:
 * 66.249.80.0/20
 * 74.125.0.0/16
 * 108.177.0.0/17
-* 192.178.13.0/24  <= unsure about this one
+* 192.178.0.0/15
 
 This are some of the IP-adresses i actually saw incomming traffic from:
 * 66.102.9.73
@@ -30,4 +30,4 @@ This are some of the IP-adresses i actually saw incomming traffic from:
 
 * https://community.home-assistant.io/t/expose-home-assistant-for-google-ips-only-ipv4-only/184646
 * https://md5calc.com/google/ip
-* 
+* https://www.gstatic.com/ipranges/goog.json
