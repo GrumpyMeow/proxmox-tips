@@ -6,7 +6,7 @@ This are the IP-ranges:
 * 66.102.0.0/20
 * 66.249.80.0/20
 * 74.125.0.0/16
-* 108.177.8.0/17
+* 108.177.0.0/17
 * 192.178.13.0/24  <= unsure about this one
 
 This are some of the IP-adresses i actually saw incomming traffic from:
