@@ -9,6 +9,9 @@ This are the IP-ranges:
 * 108.177.0.0/17
 * 192.178.0.0/15
 
+I also had to add an IP-address from my ISP (Odido):
+* 89.205.130.202
+
 This are some of the IP-adresses i actually saw incomming traffic from:
 * 66.102.9.73
 * 66.102.9.74
