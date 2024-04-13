@@ -62,4 +62,22 @@ Comment: `Allow inbound Zabbix ping`
 Log level: `nolog`
 I added this security group to all my LXCs/VMs.
 
+# Create Security Group for "Mail-delivery"
+I also create a Security Group to allow mail-delivery (smtp, tcp/25) to my mail-server.
 
+I create an alias for my mail-server:
+* Name: `Mail-server`
+* IP/CIDR: `192.168.178.97`
+* Comment: `Mail server`
+
+So i created a "Security Group" named `mail-delivery`.
+With a rule:
+Direction: `Out`
+Action: `Accept`
+Protocol: `tcp`
+Dest Port: `80`
+Destination: alias `mail-server`
+Comment: `Allow mail delivery`
+Log level: `nolog`
+I added this security group to all my LXCs/VMs which make use of mail-delivery (Zabbix, PVE-node).
+ 
