@@ -81,3 +81,9 @@ Comment: `Allow mail delivery`
 Log level: `nolog`
 I added this security group to all my LXCs/VMs which make use of mail-delivery (Zabbix, PVE-node).
  
+
+# Create Security Group for "drop-inbound-mdns"
+
+|      |      | Protocol     | Destination |
+|------|------|--------------|-------------|
+| IN   | DROP | 
