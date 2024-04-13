@@ -49,5 +49,17 @@ It's also possible to have an "active" Zabbix client instance which will communi
    Enabled: `checked`
 5. Confirm with the "OK" button
    
+# Create Security Group for "Zabbix-ping"
+I also configured Zabbix-server to ping my network devices. I want to allow this ping-checks.
+So i created a "Security Group" named `zabbix-ping`.
+With a rule:
+Direction: `In`
+Action: `Accept`
+Protocol: `icmp`
+ICMP-type: `echo-request`
+Source: `zabbix-server`
+Comment: `Allow inbound Zabbix ping`
+Log level: `nolog`
+I added this security group to all my LXCs/VMs.
 
 
