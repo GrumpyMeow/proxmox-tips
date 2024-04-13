@@ -30,7 +30,7 @@ This are some of the IP-adresses i actually saw incomming traffic from:
 
 
 
-
+Resources:
 * https://community.home-assistant.io/t/expose-home-assistant-for-google-ips-only-ipv4-only/184646
 * https://md5calc.com/google/ip
 * https://www.gstatic.com/ipranges/goog.json
