@@ -17,6 +17,18 @@ It all boils down to running a LXC-container with these properties:
 
 ## Know issues
 * Sometimes the screen blacks-out for a while when i move my mouse. Currently i don't why this happens. I've noticed that this happens when i move my mouse on the login-screen (SDDM-greeter), but also when i move my mouse when making a snapshot with Spectacle.
+* In the log (`journalctl -ef`) quite some errors are logged because of some services not being available.
+
+## Privileges
+For running a full desktop, the following configuration is needed:
+```
+lxc.apparmor.profile: unconfined
+lxc.cap.drop:
+lxc.cap.drop: sys_time sys_module sys_rawio
+lxc.cgroup2.devices.allow: a
+lxc.mount.auto: cgroup:rw
+lxc.mount.auto: sys:rw
+```
 
 ## Device-files
 
@@ -76,14 +88,6 @@ lxc.cgroup.devices.allow: c 116:* rwm
 ```
 
 
-```
-lxc.apparmor.profile: unconfined
-lxc.cap.drop:
-lxc.cap.drop: sys_time sys_module sys_rawio
-lxc.cgroup2.devices.allow: a
-lxc.mount.auto: cgroup:rw
-lxc.mount.auto: sys:rw
-```
 
 Passthrough input devices (keyboard, mouse):
 ```
