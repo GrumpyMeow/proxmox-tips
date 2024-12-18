@@ -14,7 +14,9 @@ Created on: 18-12-2024, NixOS release 24.11, Proxmox v8.3.1
 
 ## Create a NixOS environment as a Proxmox LXC container
 * The exact parameters for `cmode`, `unprivileged`, `ostype`, and `features` is needed for getting this container running.
-* The container 
+* The container will get an IP via DHCP
+* The root user in the container is passwordless
+* SSH is enabled, also for the root user
 
 Run on your Proxmox host:
 ```
