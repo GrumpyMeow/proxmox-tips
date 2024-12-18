@@ -357,3 +357,5 @@ It would be fun to eventually see these patterns arise.
 
 Looking at the data i already suspect that there might not be enough of data to really get usefull insights. 
 Maybe just like on the Oura-ring page, only three-point-patterns like hammock, slope, hill, etc. We will see. 
+
+I noticed the device crashes on a regular basis which is recognizable by the short lighting of the led. This distorts the filters. So probably better to implement the filters in Home Assistant instead of on the device.
