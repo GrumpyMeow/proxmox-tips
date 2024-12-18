@@ -350,6 +350,7 @@ My new filter settings i'm gonna try:
           send_first_at: 1
           send_every: 1
 ```
+I also chose to increase the timeout from `timeout: 120s` to `timeout: 600s` to get rid of some small gaps in the data. 
 
 There seem to be a [few patterns](https://ouraring.com/blog/sleeping-heart-rate/) which can be seen during sleeping.  
 It would be fun to eventually see these patterns arise.
