@@ -292,18 +292,6 @@ external_components:
 # Results
 
 ## 18-12-2024
-My conclusion at this time is that i need to increase the average over a longer period. As the variation makes it impossible to visually see anything usefull.
-
-Current filter settings:
-```
-      - exponential_moving_average:
-          alpha: 0.1
-          send_every: 1
-
-      - max/min:
-          window_size: 5
-          send_every: 1
-```
 
 ### Distance detected object
 The result of the measured distance looks accurate. It detected some tossing and turning of me during my sleep.
@@ -332,4 +320,34 @@ This is the chart of the raw and filtered sensor data. The brownish-line is of t
 This is the chart of the min and max sensor data.
 ![image](https://github.com/user-attachments/assets/72adb0f6-7574-4c2c-a35b-60f2f0264a6b)
 
+### Conclusion
+My conclusion at this time is that i need to increase the average over a longer period. As the variation makes it impossible to visually see anything usefull.
 
+Current filter settings:
+```
+      - exponential_moving_average:
+          alpha: 0.1
+          send_every: 1      (default=15, i might have used a weird value here)
+          send_first_at: 1  <=default
+
+      - max/min:
+          window_size: 5
+          send_every: 1
+```
+
+My new filter settings i'm gonna try:
+```
+    - quantile:
+        window_size: 7        (default=7)
+        send_every: 4
+        send_first_at: 3
+        quantile: .9
+
+      - max/min:
+          window_size: 20
+          send_first_at: 1
+          send_every: 1
+```
+
+There seem to be a [few patterns](https://ouraring.com/blog/sleeping-heart-rate/) which can be seen during sleeping.  
+It would be fun to eventually see these patterns arise.
