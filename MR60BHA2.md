@@ -309,6 +309,11 @@ Current filter settings:
 The result of the measured distance looks accurate. It detected some tossing and turning of me during my sleep.
 ![image](https://github.com/user-attachments/assets/ce65fdb6-d4a6-48c8-84fe-dadbf923b26a)
 
+### Light sensor
+The result of the measured light looks accurate. At 6:45 a bedside lamp is turned on. From 8:40 and later it's daylight.
+![image](https://github.com/user-attachments/assets/cc2c501f-ea02-439d-bf1f-bbe9da8f8bfa)
+
+
 ### Breathing rate
 This is a graph of the raw sensor data. The variation is quite big and hopefully inaccuracy. This as otherwise i might have a severe case of slaap apnea. 
 ![image](https://github.com/user-attachments/assets/87ac53d9-36f6-45ee-911e-d9aea22a28b8)
