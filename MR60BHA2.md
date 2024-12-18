@@ -171,6 +171,7 @@ sensor:
     breath_rate:
       id: brf_raw
       name: "${brf_name} ruw"
+      unit_of_measurement: bpm    
       internal: false
       accuracy_decimals: 2
       filters:
@@ -187,6 +188,7 @@ sensor:
     heart_rate:
       id: hrf_raw
       name: "${hrf_name} ruw"
+      unit_of_measurement: bpm    
       internal: false
       accuracy_decimals: 2
       filters:
