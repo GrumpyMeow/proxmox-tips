@@ -354,3 +354,6 @@ I also chose to increase the timeout from `timeout: 120s` to `timeout: 600s` to 
 
 There seem to be a [few patterns](https://ouraring.com/blog/sleeping-heart-rate/) which can be seen during sleeping.  
 It would be fun to eventually see these patterns arise.
+
+Looking at the data i already suspect that there might not be enough of data to really get usefull insights. 
+Maybe just like on the Oura-ring page, only three-point-patterns like hammock, slope, hill, etc. We will see. 
