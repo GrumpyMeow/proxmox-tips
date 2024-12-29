@@ -359,3 +359,20 @@ Looking at the data i already suspect that there might not be enough of data to 
 Maybe just like on the Oura-ring page, only three-point-patterns like hammock, slope, hill, etc. We will see. 
 
 I noticed the device crashes on a regular basis which is recognizable by the short lighting of the led. This distorts the filters. So probably better to implement the filters in Home Assistant instead of on the device.
+
+## 29-12-2024
+Doing the filtering in Home Assistant gives much better results.
+
+Initially i had configured a moving-average filter with a maximum of 50samples and/or 30minutes. This still gave too much jittery to visually interpret.
+The following screenshot is my breathing-frequency for the last 6 nights. The last night i had changed the moving-average filter to 250samples and/or 2hours. 
+![image](https://github.com/user-attachments/assets/481c12f8-072a-44bc-96c0-913a26da81bc)
+And this is the screenshot of my heart-rate for the last 6 nights.
+![image](https://github.com/user-attachments/assets/12ab6d0b-5a46-4547-8bd7-fcf3491e1d2c)
+
+This is the chart of my breathing-rate of the last night:
+![image](https://github.com/user-attachments/assets/d46e6894-4a20-4719-ac76-35508683046b)
+And the same chart with the raw sensor values in blue overlayed:
+![image](https://github.com/user-attachments/assets/228229f5-075e-4442-a8f9-3e512e40aacb)
+
+### Conclusion
+I think better results might be retrieved by reducing the number of ourliers which should allow for reducing the strength moving average filter.
