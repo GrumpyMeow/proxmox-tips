@@ -16,7 +16,7 @@ ap_keuken=[\"90:9f:22:0d:97:bf\",\"$ssid\",\"909f220d97bfef5900008040090603023a0
 ap_washok=[\"d4:1a:d1:18:87:01\",\"$ssid\",\"d41ad1188701ef5900008040090603023a00\"],[\"d4:1a:d1:18:87:00\",\"$ssid\",\"d41ad1188700ef4900005106070603000600\"]
 ap_zolder=[\"f8:0d:a9:3a:01:01\",\"$ssid\",\"f80da93a0101ef5900008040090603023a00\"],[\"f8:0d:a9:3a:00:00\",\"$ssid\",\"f80da93a0000ef490000510d070603000d00\"]
 
-# Remove current Access-Point from $list. This to not advertise itself.
+# Remove current Access-Point from $list. This to not advertise itself. 
 list=[$ap_beneden,$ap_zolder,$ap_washok,$ap_keuken]
 
 ubus call hostapd.5g rrm_nr_set '{"list": '$list' }'
@@ -30,7 +30,11 @@ ubus call hostapd.5g rrm_nr_list
 ubus call hostapd.2g rrm_nr_list
 ```
 
-more /var/run/hostapd-ph0.conf 
+```
+more /var/run/hostapd-ph0.conf
+```
+
+In Startup: `sleep 10 && /root/rrm.sh &`
 
 
 https://github.com/simonyiszk/openwrt-rrm-nr-distributor
