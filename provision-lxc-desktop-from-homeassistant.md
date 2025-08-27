@@ -237,13 +237,20 @@ remote_command_line:
         sudo apt install -y code
       "
 
-      logger "Installing new version xRDP Server"
+      # Only needed for Debian v12
+      #logger "Installing new version xRDP Server"
+      #pct exec $ctid -- su - $user -c "
+      #  wget https://www.c-nergy.be/downloads/xRDP/xrdp-installer-1.5.4.zip;
+      #  unzip xrdp-installer-1.5.4.zip;
+      #  rm xrdp-installer-1.5.4.zip;
+      #  chmod +x  xrdp-installer-1.5.4.sh;
+      #  ./xrdp-installer-1.5.4.sh -d -u -p
+      #"
+
+      # Debian v13
+      logger "Installing xRDP Server"
       pct exec $ctid -- su - $user -c "
-        wget https://www.c-nergy.be/downloads/xRDP/xrdp-installer-1.5.4.zip;
-        unzip xrdp-installer-1.5.4.zip;
-        rm xrdp-installer-1.5.4.zip;
-        chmod +x  xrdp-installer-1.5.4.sh;
-        ./xrdp-installer-1.5.4.sh -d -u -p
+        sudo apt install -y xrdp
       "
 
       logger "Configuring kwinrc"
