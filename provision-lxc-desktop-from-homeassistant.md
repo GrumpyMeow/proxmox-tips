@@ -250,7 +250,8 @@ remote_command_line:
       # Debian v13
       logger "Installing xRDP Server"
       pct exec $ctid -- su - $user -c "
-        sudo apt install -y xrdp
+        sudo apt install -y xrdp;
+        sudo apt install -y kwin-x11
       "
 
       logger "Configuring kwinrc"
