@@ -331,6 +331,9 @@ mode: single
 
 
 ## Feature: Seperate sensors for gas usage for heating-circuit and hot-water-circuit
+Using a P1 meter i'm able to track the usage of gas. But using PrEnergy* of my Vaillant Boiler, i'm even able to track for which goal gas used.
+<img width="1674" height="455" alt="image" src="https://github.com/user-attachments/assets/88905d42-a450-46f8-b1cd-1e8528671ebf" />
+
 
 ### "automation.reset_prenergy_waarden_om_middernacht"
 This automation will start a script at midnight which resets the prenergy* fields.
