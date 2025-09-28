@@ -1,4 +1,7 @@
 # Central heating using Home Assistant and eBus
+I've here described the automations/helpers/script which i currently use for my controlling and monitoring my Vaillant EcoTEC boiler using eBus.
+
+## Feature: High-low-temperature schedule
 I am using a "2 presets" configuration with a high-temperature and low-temperature preset.
 
 I am using a setup which is using a [Schedule helper](https://www.home-assistant.io/integrations/schedule/) to switch the heating-presets (high or low) at which times.
@@ -8,13 +11,13 @@ I am also using a [Boolean helper](https://www.home-assistant.io/integrations/in
 
 <img width="523" height="754" alt="image" src="https://github.com/user-attachments/assets/d734b624-4827-4179-90d2-9233c4466080" /><img width="484" height="358" alt="image" src="https://github.com/user-attachments/assets/2b44944b-b49f-4df2-91f2-22f35734f6e3" />
 
-## Helpers
+### Helpers
 * `input_boolean.verwarming_schema_gestuurd`: This is a switch to enable/disable the controlling of the heating via the schema.
 * `schedule.verwarming`: This is a schedule helper in which a week-schedule can be configured to define when the "high"-heating-preset is desired.
 * `input_number.woonkamer_verwarming_hoog_temperatuur`: This is the temperature which is desired to be used for the "high"-preset.
 * `input_number.woonkamer_verwarming_laag_temperatuur`: This is the temperature which is desired to be used for the "low"-preset
 
-## Dashboard card
+### Dashboard card
 ```
 type: entities
 title: Verwarmingsschema
@@ -76,7 +79,6 @@ entities:
         name: Laag
 show_header_toggle: false
 ```
-## Automations
 
 ### "Woonkamer verwarming hoog op basis van schema"
 This automation ensures the "high"-preset to be enabled.
@@ -156,13 +158,12 @@ actions:
 mode: single
 ```
 
-## Polling and updating
+## Feature: Polling and updating
 This automation keeps the script running. The script should run continuously. I use this automation and a script to prevent Home Assistant from continuously registering the start of automations and scripts.
 
-### Automation: "automation.poll_warm_water_script_starten"
+### "automation.poll_warm_water_script_starten"
 ```
 alias: Scripts "eBUS polling" actief houden
-description: ""
 triggers:
   - trigger: homeassistant
     event: start
@@ -174,11 +175,8 @@ triggers:
     entity_id:
       - script.poll_low_prio_ebus_registers
     to: "off"
-conditions: []
 actions:
   - action: script.turn_on
-    metadata: {}
-    data: {}
     target:
       entity_id:
         - script.poll_warm_water_waarden
@@ -186,7 +184,7 @@ actions:
 mode: single
 ```
 
-### Script: "script.poll_warm_water_waarden"
+### "script.poll_warm_water_waarden"
 This script polls values which are used to temporarily increase the polling frequency of certain other values.
 ```
 sequence:
@@ -217,11 +215,10 @@ sequence:
         - delay:
             seconds: 5
 alias: Poll high-prio ebus waarden
-description: ""
 icon: mdi:target
 ```
 
-### Script: "script.poll_low_prio_ebus_registers"
+### "script.poll_low_prio_ebus_registers"
 This script runs in a loop and will poll certain values on a lower frequency.
 ```
 sequence:
@@ -289,7 +286,7 @@ description: ""
 icon: mdi:target-variant
 ```
 
-### Script: "automation.tijdens_cv_brander_frequenter_waarden_ophalen"
+### "automation.tijdens_cv_brander_frequenter_waarden_ophalen"
 ```
 alias: Tijdens "CV Brander" frequenter waarden ophalen
 description: ""
@@ -299,7 +296,6 @@ triggers:
       - sensor.ebusd_bai_flame
     to: "on"
     from: "off"
-conditions: []
 actions:
   - repeat:
       while:
@@ -333,117 +329,27 @@ actions:
 mode: single
 ```
 
-### Script: "script.opvragen_ebusd_waarden"
-Old script. Might not be needed any more.
-```
-alias: Alle ebusd entiteiten voorzien van de ontvangen waarden of null
-description: ""
-sequence:
-  - data:
-      topic: ebusd/list
-      payload: " "
-    alias: Publiceer "ebusd/list" commando voor ophalen alle bekende waarden
-    action: mqtt.publish
-  - delay:
-      seconds: 5
-  - variables:
-      topics:
-        - 350/DisplayedHc1RoomTempDesired
-        - 350/DisplayedRoomTemp
-        - 350/HwcOPMode
-        - 350/Hc1DayTemp
-        - 350/Hc1HolidayRoomTemp
-        - 350/Hc1NightTemp
-        - bai/PrEnergySumHc1
-        - bai/PrEnergySumHwc1
-        - bai/PartloadHcKW
-        - bai/maintenancedata_HwcTempMax
-        - bai/HwcHours
-        - bai/HwcStarts
-        - bai/HwcTemp
-    alias: >-
-      Definieer lijst van topics waarvan de waarde direct opgevraagd dient te
-      worden
-  - alias: Publiceer "get" commando's voor direct ophalen van waarden van topics
-    repeat:
-      count: "{{ topics | count }}"
-      sequence:
-        - variables:
-            topic: ebusd/{{ topics[repeat.index - 1] }}/get
-        - data:
-            topic: "{{topic}}"
-          action: mqtt.publish
-  - variables:
-      topics:
-        - bai/Flame
-        - bai/HwcWaterflow
-        - bai/Statenumber
-        - bai/HwcDemand
-        - bai/PumpPower
-    alias: >-
-      Definieer lijst van topics waarvan de waarde zeer regelmatig bijgewerkt
-      dient te worden
-  - alias: >-
-      Publiceer "get?1" commando's voor het zeer regelmatig bijwerken van de
-      waarden van topics
-    repeat:
-      count: "{{ topics | count }}"
-      sequence:
-        - variables:
-            topic: ebusd/{{ topics[repeat.index - 1] }}/get
-        - data:
-            topic: "{{topic}}"
-            payload: "?1"
-          action: mqtt.publish
-  - variables:
-      topics:
-        - bai/CirPump
-        - bai/PrEnergySumHc1
-        - bai/PrEnergySumHwc1
-        - bai/PrEnergyCountHwc1
-        - bai/PrEnergyCountHc1
-        - bai/RemainingBoilerblocktime
-        - bai/ReturnTemp
-        - bai/PumpPowerDesired
-    alias: >-
-      Definieer lijst van topics waarvan de waarde minder regelmatig bijgewerkt
-      dient te worden
-  - alias: >-
-      Publiceer "get?2" commando's voor het minder regelmatig bijwerken van de
-      waarden van topics
-    repeat:
-      count: "{{ topics | count }}"
-      sequence:
-        - variables:
-            topic: ebusd/{{ topics[repeat.index - 1] }}/get
-        - data:
-            topic: "{{topic}}"
-            payload: "?2"
-          action: mqtt.publish
-```
 
-## Sensor gas usage for heating-circuit and for hot-water-circuit
+## Feature: Seperate sensors for gas usage for heating-circuit and hot-water-circuit
 
-### Script: "automation.reset_prenergy_waarden_om_middernacht"
+### "automation.reset_prenergy_waarden_om_middernacht"
+This automation will start a script at midnight which resets the prenergy* fields.
 ```
 alias: Reset PrEnergy* waarden om middernacht
-description: ""
 triggers:
   - trigger: time_pattern
     hours: "0"
     minutes: "0"
     seconds: "0"
-conditions: []
 actions:
   - action: script.turn_on
-    metadata: {}
-    data: {}
     target:
       entity_id: script.reset_prenergy_waarden
 mode: single
 ```
 
-### Script: "script.reset_prenergy_waarden"
+### "script.reset_prenergy_waarden"
+This script resets the PrEnergy* fields.
 ```
 sequence:
   - alias: Reset ebusd/bai/PrEnergyCountHwc1
@@ -471,16 +377,17 @@ sequence:
     action: mqtt.publish
     enabled: true
 alias: Reset PrEnergy* waarden
-description: ""
 ```
 
 
-### Helper: "sensor.gasverbruik_voor_warm_water"
+### Template Helper: "sensor.gasverbruik_voor_warm_water"
+This helper will calculate the m3 of gas used for hot-water-circuit.
 ```
 {{ (states("sensor.ebusd_bai_prenergysumhwc1") |float) * 0.000002010000000 }}
 ```
 
-### Helper: "sensor.gasverbruik_vandaag_voor_verwarming"
+### Template Helper: "sensor.gasverbruik_vandaag_voor_verwarming"
+This helper will calculate the m3 of gas used for heating-circuit.
 ```
 {{ (states("sensor.ebusd_bai_prenergysumhc1") |float) * 0.00000203370665409 }}
 ```
