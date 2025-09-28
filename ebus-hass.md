@@ -332,56 +332,6 @@ actions:
             milliseconds: 0
 mode: single
 ```
-### Script: "automation.reset_prenergy_waarden_om_middernacht"
-```
-alias: Reset PrEnergy* waarden om middernacht
-description: ""
-triggers:
-  - trigger: time_pattern
-    hours: "0"
-    minutes: "0"
-    seconds: "0"
-conditions: []
-actions:
-  - action: script.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: script.reset_prenergy_waarden
-mode: single
-```
-
-### Script: "script.reset_prenergy_waarden"
-```
-sequence:
-  - alias: Reset ebusd/bai/PrEnergyCountHwc1
-    data:
-      topic: ebusd/bai/PrEnergyCountHwc1/set
-      payload: "0"
-    action: mqtt.publish
-    enabled: true
-  - alias: Reset ebusd/bai/PrEnergyCountHc1
-    data:
-      topic: ebusd/bai/PrEnergyCountHc1/set
-      payload: " 0"
-    action: mqtt.publish
-    enabled: true
-  - alias: Reset ebusd/bai/PrEnergySumHc1
-    data:
-      topic: ebusd/bai/PrEnergySumHc1/set
-      payload: " 0"
-    action: mqtt.publish
-    enabled: true
-  - alias: Reset ebusd/bai/PrEnergySumHwc1
-    data:
-      topic: ebusd/bai/PrEnergySumHwc1/set
-      payload: " 0"
-    action: mqtt.publish
-    enabled: true
-alias: Reset PrEnergy* waarden
-description: ""
-```
-
 
 ### Script: "script.opvragen_ebusd_waarden"
 Old script. Might not be needed any more.
@@ -470,4 +420,67 @@ sequence:
             topic: "{{topic}}"
             payload: "?2"
           action: mqtt.publish
+```
+
+## Sensor gas usage for heating-circuit and for hot-water-circuit
+
+### Script: "automation.reset_prenergy_waarden_om_middernacht"
+```
+alias: Reset PrEnergy* waarden om middernacht
+description: ""
+triggers:
+  - trigger: time_pattern
+    hours: "0"
+    minutes: "0"
+    seconds: "0"
+conditions: []
+actions:
+  - action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: script.reset_prenergy_waarden
+mode: single
+```
+
+### Script: "script.reset_prenergy_waarden"
+```
+sequence:
+  - alias: Reset ebusd/bai/PrEnergyCountHwc1
+    data:
+      topic: ebusd/bai/PrEnergyCountHwc1/set
+      payload: "0"
+    action: mqtt.publish
+    enabled: true
+  - alias: Reset ebusd/bai/PrEnergyCountHc1
+    data:
+      topic: ebusd/bai/PrEnergyCountHc1/set
+      payload: " 0"
+    action: mqtt.publish
+    enabled: true
+  - alias: Reset ebusd/bai/PrEnergySumHc1
+    data:
+      topic: ebusd/bai/PrEnergySumHc1/set
+      payload: " 0"
+    action: mqtt.publish
+    enabled: true
+  - alias: Reset ebusd/bai/PrEnergySumHwc1
+    data:
+      topic: ebusd/bai/PrEnergySumHwc1/set
+      payload: " 0"
+    action: mqtt.publish
+    enabled: true
+alias: Reset PrEnergy* waarden
+description: ""
+```
+
+
+### Helper: "sensor.gasverbruik_voor_warm_water"
+```
+{{ (states("sensor.ebusd_bai_prenergysumhwc1") |float) * 0.000002010000000 }}
+```
+
+### Helper: "sensor.gasverbruik_vandaag_voor_verwarming"
+```
+{{ (states("sensor.ebusd_bai_prenergysumhc1") |float) * 0.00000203370665409 }}
 ```
