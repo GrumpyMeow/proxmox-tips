@@ -1,5 +1,10 @@
 # Central heating using Home Assistant and eBus
-I've here described the automations/helpers/script which i currently use for my controlling and monitoring my Vaillant EcoTEC boiler using eBus.
+I've here described the automations/helpers/script which i currently use for my controlling and monitoring my Vaillant EcoTEC boiler using eBus. I have the following features:
+* Feature: Initialise Vaillant EcoTEC boiler
+* Feature: High-low-temperature schedule
+* Feature: Polling and updating
+* Feature: Seperate sensors for gas usage for heating-circuit and hot-water-circuit
+
 
 ## Feature: Initialise Vaillant EcoTEC boiler
 I configure specific values each time Home Assistant starts
