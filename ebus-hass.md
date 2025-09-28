@@ -1,6 +1,142 @@
 # Central heating using Home Assistant and eBus
 I've here described the automations/helpers/script which i currently use for my controlling and monitoring my Vaillant EcoTEC boiler using eBus.
 
+## Feature: Initialise Vaillant EcoTEC boiler
+I configure specific values each time Home Assistant starts
+
+### "automation.alle_ebusd_entiteiten_voorzien_van_de_ontvangen_waarden_of_null"
+```
+alias: Alle ebusd waarden opvragen
+description: ""
+triggers:
+  - event: start
+    trigger: homeassistant
+  - trigger: state
+    entity_id:
+      - climate.woonkamer_verwarming
+    to: unknown
+  - entity_id:
+      - sensor.ebusd_global_scan
+    to: "\"finished\""
+    trigger: state
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - minutes: "0"
+    trigger: time_pattern
+actions:
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: script.opvragen_ebusd_waarden
+    action: script.turn_on
+```
+
+### "script.opvragen_ebusd_waarden"
+```
+alias: Alle ebusd entiteiten voorzien van de ontvangen waarden of null
+description: ""
+sequence:
+  - action: mqtt.publish
+    data:
+      topic: ebusd/broadcast/vdatetime/set
+      payload: |
+        {{ now().strftime('%H:%M:%S;%d.%m.%Y') }}
+    alias: Stel vdatetime in
+  - action: mqtt.publish
+    data:
+      topic: ebusd/350/HwcTempDesired/set
+      payload: "60"
+    alias: Gewenste warm-water temperatuur 60graden
+  - data:
+      topic: ebusd/list
+      payload: " "
+    alias: Publiceer "ebusd/list" commando voor ophalen alle bekende waarden
+    action: mqtt.publish
+  - delay:
+      seconds: 5
+  - variables:
+      topics:
+        - 350/DisplayedHc1RoomTempDesired
+        - 350/DisplayedRoomTemp
+        - 350/HwcOPMode
+        - 350/Hc1DayTemp
+        - 350/Hc1HolidayRoomTemp
+        - 350/Hc1NightTemp
+        - bai/PrEnergySumHc1
+        - bai/PrEnergySumHwc1
+        - bai/PartloadHcKW
+        - bai/maintenancedata_HwcTempMax
+        - bai/HwcHours
+        - bai/HwcStarts
+        - bai/HwcTemp
+    alias: >-
+      Definieer lijst van topics waarvan de waarde direct opgevraagd dient te
+      worden
+  - alias: Publiceer "get" commando's voor direct ophalen van waarden van topics
+    repeat:
+      count: "{{ topics | count }}"
+      sequence:
+        - variables:
+            topic: ebusd/{{ topics[repeat.index - 1] }}/get
+        - data:
+            topic: "{{topic}}"
+          action: mqtt.publish
+  - variables:
+      topics:
+        - bai/Flame
+        - bai/HwcWaterflow
+        - bai/Statenumber
+        - bai/HwcDemand
+        - bai/PumpPower
+    alias: >-
+      Definieer lijst van topics waarvan de waarde zeer regelmatig bijgewerkt
+      dient te worden
+  - alias: >-
+      Publiceer "get?1" commando's voor het zeer regelmatig bijwerken van de
+      waarden van topics
+    repeat:
+      count: "{{ topics | count }}"
+      sequence:
+        - variables:
+            topic: ebusd/{{ topics[repeat.index - 1] }}/get
+        - data:
+            topic: "{{topic}}"
+            payload: "?1"
+          action: mqtt.publish
+  - variables:
+      topics:
+        - bai/CirPump
+        - bai/PrEnergySumHc1
+        - bai/PrEnergySumHwc1
+        - bai/PrEnergyCountHwc1
+        - bai/PrEnergyCountHc1
+        - bai/RemainingBoilerblocktime
+        - bai/ReturnTemp
+        - bai/PumpPowerDesired
+    alias: >-
+      Definieer lijst van topics waarvan de waarde minder regelmatig bijgewerkt
+      dient te worden
+  - alias: >-
+      Publiceer "get?2" commando's voor het minder regelmatig bijwerken van de
+      waarden van topics
+    repeat:
+      count: "{{ topics | count }}"
+      sequence:
+        - variables:
+            topic: ebusd/{{ topics[repeat.index - 1] }}/get
+        - data:
+            topic: "{{topic}}"
+            payload: "?2"
+          action: mqtt.publish
+```
+
 ## Feature: High-low-temperature schedule
 I am using a "2 presets" configuration with a high-temperature and low-temperature preset.
 
